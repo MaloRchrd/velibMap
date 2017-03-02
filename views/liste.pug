@@ -1,0 +1,51 @@
+extends layout.pug
+
+block nav
+  nav#mainNav.navbar.navbar-default.navbar-fixed-top.navbar-custom
+    .container
+      // Brand and toggle get grouped for better mobile display
+      .navbar-header.page-scroll
+        button.navbar-toggle(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+          span.sr-only Toggle navigation
+          |  Menu
+          i.fa.fa-bars
+        a.navbar-brand(href='#page-top')
+          i.fa.fa-bicycle(aria-hidden='true')
+          | Les WELIB
+      // Collect the nav links, forms, and other content for toggling
+      #bs-example-navbar-collapse-1.collapse.navbar-collapse
+        ul.nav.navbar-nav.navbar-right
+          li.hidden
+            a(href='#page-top')
+          li.page-scroll
+            a(href='../liste') liste des velibs
+          li.page-scroll
+            a(href='../carte') carte des stations
+          li.page-scroll
+            a(href='/remarques') Remarques
+      // /.navbar-collapse
+    // /.container-fluid
+
+  block main
+    .container
+      .row-fluid
+        h1 velib[0].name
+        table.table
+          caption Optional table caption.
+          thead
+            tr
+              th id
+              th Number
+              th Name
+              th Adress
+              th Lat
+              th long
+          tbody
+            each val in velibs
+              tr
+                th(scope='row') #{val._id}
+                th #{val.number}
+                th #{val.name}
+                th #{val.address}
+                th #{val.latitude}
+                th #{val.longitude}

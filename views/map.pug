@@ -1,0 +1,50 @@
+extends layout.pug
+
+block nav
+  nav#mainNav.navbar.navbar-default.navbar-fixed-top.navbar-custom
+    .container
+      // Brand and toggle get grouped for better mobile display
+      .navbar-header.page-scroll
+        button.navbar-toggle(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+          span.sr-only Toggle navigation
+          |  Menu
+          i.fa.fa-bars
+        a.navbar-brand(href='#page-top')
+          i.fa.fa-bicycle(aria-hidden='true')
+          |&nbsp;&nbsp;Les WELIBS
+      // Collect the nav links, forms, and other content for toggling
+      #bs-example-navbar-collapse-1.collapse.navbar-collapse
+        ul.nav.navbar-nav.navbar-right
+          li.hidden
+            a(href='#page-top')
+          li.page-scroll
+            a(href='../liste') liste des velibs
+          li.page-scroll
+            a(href='../carte') carte des stations
+          li.page-scroll
+            a(href='/remarques') Remarques
+      // /.navbar-collapse
+    // /.container-fluid
+
+block main
+    #map
+    script.
+      L.mapbox.accessToken = 'pk.eyJ1IjoibWFsb3JjaHJkIiwiYSI6ImNpenF1eXN0ODAwMG0zM3J3ZmZ2MjNzN2sifQ.E5YpdBoOK3LKnWjGUcsr4A';
+      var map = L.mapbox.map('map', 'mapbox.streets')
+      .setView([48.8627, 2.287], 12);
+      // Define an icon called cssIcon
+      var cssIcon = L.divIcon({
+      // Specify a class name we can refer to in CSS.
+      className: 'css-icon',
+      // Set marker width and height
+      iconSize: [60, 60]
+      });
+      var bikepin = L.icon({iconUrl: 'img/bikepin.png',iconSize:[50, 74]});
+      var velib = !{JSON.stringify(velibs)};
+      console.log(velib)
+      for (var i = 0; i < velib.length; i++) {
+      L.marker([velib[i].latitude , velib[i].longitude], {icon: bikepin}).addTo(map);
+      
+      }
+
+block footer
